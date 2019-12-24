@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const port = 3001;
+const port = 3002;
 
 const static = express.static('static');
 app.use(static);
@@ -11,5 +11,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('示例应用正在监听 ${port} 端口！')
+    console.log(`示例应用正在监听 ${port} 端口！`)
 });
