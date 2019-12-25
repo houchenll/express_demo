@@ -12,7 +12,7 @@
         var width = 600 - margin.left - margin.right;
         var height = 300 - margin.top - margin.bottom;
 
-        var parseDate = d3.time.format("%Y-%m").parse;
+        var parseDate = d3.timeFormat("%Y-%m").parse;
         var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
         var y = d3.scale.linear().range([height, 0]);
 
