@@ -12,9 +12,7 @@ var chart = d3.select(".chart")
 //     return d;
 // }
 
-d3.csv('data.csv', function(err, data) {
-    console.log("error is ...");
-    console.log(err);
+d3.csv('data.csv', function(data) {
     console.log("data is ...");
     console.log(data);
 
