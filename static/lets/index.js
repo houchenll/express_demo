@@ -12,13 +12,13 @@ var chart = d3.select(".chart")
 //     return d;
 // }
 
-d3.tsv("    ", "data.tsv", function(d) {
-    console.log("d is ...")
-    console.log(d);
+d3.csv("data.csv", function(err, data) {
+    console.log("data is ...")
+    console.log(data);
 
     return {
-        name: d.name,
-        value: +d.value
+        name: data.name,
+        value: +data.value
     };
 
     // x.domain([0, d3.max(data, function(d) { return d.value; })]);
