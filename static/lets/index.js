@@ -12,8 +12,10 @@ var chart = d3.select(".chart")
 //     return d;
 // }
 
-d3.csv("data.csv", function(err, data) {
-    console.log("data is ...")
+d3.csv('data.csv', function(err, data) {
+    console.log("error is ...");
+    console.log(err);
+    console.log("data is ...");
     console.log(data);
 
     // x.domain([0, d3.max(data, function(d) { return d.value; })]);
@@ -37,5 +39,3 @@ d3.csv("data.csv", function(err, data) {
     //     .attr("dy", ".35em")  // dy ?
     //     .text(function(d) { return d.value; });   
 });
-
-
