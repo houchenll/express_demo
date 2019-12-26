@@ -16,11 +16,6 @@ d3.csv("data.csv", function(err, data) {
     console.log("data is ...")
     console.log(data);
 
-    return {
-        name: data.name,
-        value: +data.value
-    };
-
     // x.domain([0, d3.max(data, function(d) { return d.value; })]);
 
     // chart.attr("height", barHeight * data.length);
@@ -41,9 +36,6 @@ d3.csv("data.csv", function(err, data) {
     //     .attr("y", barHeight / 2)
     //     .attr("dy", ".35em")  // dy ?
     //     .text(function(d) { return d.value; });   
-}).then(function(data) {
-    console.log("data2 is ");
-    console.log(data);
 });
 
 
