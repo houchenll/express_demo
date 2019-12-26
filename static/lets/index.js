@@ -18,7 +18,7 @@ d3.csv('data.csv', function(data) {
 
     return {
         name: data.name,
-        value: +data.value;
+        value: +data.value
     };
 }).then(function(data) {
     console.log("data2 is ...")
