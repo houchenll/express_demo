@@ -8,7 +8,7 @@ var chart = d3.select(".chart")
     .attr("width", width);
 
 d3.tsv("data.tsv", type, function(error, data) {
-    console.log(error);
+    // console.log(error);
     console.log(data);
 
     // x.domain([0, d3.max(data, function(d) { return d.value; })]);
