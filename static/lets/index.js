@@ -12,7 +12,7 @@ var chart = d3.select(".chart")
 //     return d;
 // }
 
-d3.tsv("data.tsv", function(d) {
+d3.tsv("    ", "data.tsv", function(d) {
     console.log("d is ...")
     console.log(d);
 
