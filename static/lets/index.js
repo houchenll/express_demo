@@ -16,24 +16,32 @@ d3.csv('data.csv', function(data) {
     console.log("data is ...");
     console.log(data);
 
-    // x.domain([0, d3.max(data, function(d) { return d.value; })]);
+    return {
+        name: data.name,
+        value: +data.value;
+    };
+}).then(function(data) {
+    console.log("data2 is ...")
+    console.log(data);
 
-    // chart.attr("height", barHeight * data.length);
+    x.domain([0, d3.max(data, function(d) { return d.value; })]);
 
-    // var bar = chart.selectAll("g")
-    //     .data(data)
-    //     .enter().append("g")
-    //     .attr("transform", function(d, i) {
-    //         return "translate(0," + i * barHeight + ")";
-    //     });
+    chart.attr("height", barHeight * data.length);
 
-    // bar.append("rect")
-    //     .attr("width", function(d) { return x(d.value); })
-    //     .attr("height", barHeight - 1);
+    var bar = chart.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+            return "translate(0," + i * barHeight + ")";
+        });
 
-    // bar.append("text")
-    //     .attr("x", function(d) { return x(d.value) - 15; })
-    //     .attr("y", barHeight / 2)
-    //     .attr("dy", ".35em")  // dy ?
-    //     .text(function(d) { return d.value; });   
+    bar.append("rect")
+        .attr("width", function(d) { return x(d.value); })
+        .attr("height", barHeight - 1);
+
+    bar.append("text")
+        .attr("x", function(d) { return x(d.value) - 15; })
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em")  // dy ?
+        .text(function(d) { return d.value; });  
 });
