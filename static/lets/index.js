@@ -7,22 +7,15 @@ var x = d3.scaleLinear()
 var chart = d3.select(".chart")
     .attr("width", width);
 
-function type(d) {
-    d.value = +d.value;
-    return d;
-}
-
 // function 第1个参数是data
-d3.csv('data.csv', type, function(data) {
-    console.log("data is ...");
+d3.csv('data.csv', function(data) {
     console.log(data);
 
-    // return {
-    //     name: data.name,
-    //     value: +data.value
-    // };
+    return {
+        name: data.name,
+        value: +data.value
+    };
 }).then(function(data) {
-    console.log("data2 is ...")
     console.log(data);
 
     x.domain([0, d3.max(data, function(d) { return d.value; })]);
