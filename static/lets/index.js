@@ -12,9 +12,7 @@ var chart = d3.select(".chart")
 //     return d;
 // }
 
-d3.tsv("data.tsv", function(error, data) {
-    console.log("error is ...")
-    console.log(error);
+d3.tsv("data.tsv", function(data) {
     console.log("data is ...")
     console.log(data);
 
@@ -38,6 +36,9 @@ d3.tsv("data.tsv", function(error, data) {
     //     .attr("y", barHeight / 2)
     //     .attr("dy", ".35em")  // dy ?
     //     .text(function(d) { return d.value; });   
+}).then(function(data) {
+    console.log("data2 is ");
+    console.log(data);
 });
 
 
