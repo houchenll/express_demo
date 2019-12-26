@@ -13,12 +13,14 @@ var chart = d3.select(".chart")
 // }
 
 d3.tsv("data.tsv", function(error, data) {
+    console.log("error is ...")
     console.log(error);
+    console.log("data is ...")
     console.log(data);
 
-    x.domain([0, d3.max(data, function(d) { return d.value; })]);
+    // x.domain([0, d3.max(data, function(d) { return d.value; })]);
 
-    chart.attr("height", barHeight * data.length);
+    // chart.attr("height", barHeight * data.length);
 
     // var bar = chart.selectAll("g")
     //     .data(data)
