@@ -7,12 +7,12 @@ var x = d3.scaleLinear()
 var chart = d3.select(".chart")
     .attr("width", width);
 
-function type(d) {
-    d.value = +d.value;
-    return d;
-}
+// function type(d) {
+//     d.value = +d.value;
+//     return d;
+// }
 
-d3.tsv("data.tsv", type, function(error, data) {
+d3.tsv("data.tsv", function(error, data) {
     console.log(error);
     console.log(data);
 
