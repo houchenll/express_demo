@@ -1,4 +1,4 @@
-function define(runtime, observer) {
+export default function define(runtime, observer) {
     console.log("get const main");
     const main = runtime.module();
 
