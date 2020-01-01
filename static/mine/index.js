@@ -46,12 +46,79 @@ export default function define(runtime, observer) {
             .html('The most populous cities in the world from 1500 to 2018');
         console.log(`title is ${title}`);
 
+        let year = 1500;    // start year
+        let top_n = 10;
+        const margin = {
+            top: 80,
+            right: 0,
+            bottom: 5,
+            left: 0
+        };
+
+        dataset.forEach(d => {
+            d.value = +d.value,
+            d.lastValue = +d.lastValue,
+            d.value = isNaN(d.value) ? 0 : d.value,
+            d.year = +d.year,
+            // d.colour = d3.hsl(Math.random()*360,0.75,0.75)
+            d.colour = "#C8BDFF"
+        });
+
+        let yearSlice = dataset.filter(d => d.year == year && !isNaN(d.value))
+            .sort((a,b) => b.value - a.value)
+            .slice(0,top_n);
+
+        yearSlice.forEach((d,i) => d.rank = i);
+
+        let x = d3.scaleLinear()
+            .domain([0, d3.max(yearSlice, d => d.value)])
+            .range([margin.left, width-margin.right-65]);
+
+        let y = d3.scaleLinear()
+            .domain([top_n, 0])
+            .range([height-margin.bottom, margin.top]);
+
+        // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
+        // _ 表示什么？为什么用 _
         d3.timeout(_ => {
             console.log('timeout');
 
+            // interval的参数是一个每隔tickDuration ms就执行一次的方法
+            // e 为从方法被调用到现在的时间总长度
             let ticker = d3.interval(e => {
-                console.log(e, tickDuration);
+                console.log('year', year, e, tickDuration);
+
+                yearSlice = dataset.filter(d => d.year == year && !isNaN(d.value))
+                    .sort((a,b) => b.value - a.value)
+                    .slice(0,top_n);
+
+                yearSlice.forEach((d,i) => d.rank = i);
+
+                let bars = svg.selectAll('.bar').data(yearSlice, d => d.name);
+
+                bars.enter()
+                    .append('rect')
+                    .attrs({
+                        class: d => `bar ${d.name.replace(/\s/g,'_')}`,
+                        x: x(0)+1,
+                        width: d => x(d.value)-x(0)-1,
+                        y: d => y(top_n+1)+5,
+                        height: y(1)-y(0)-barPadding
+                    })
+                    .styles({
+                        fill: d => colourScale(d.group)
+                    })
+                    .transition()
+                    .duration(tickDuration)
+                    .ease(d3.easeLinear)
+                    .attr({
+                        y: d => y(d.rank) + 5
+                    });
+
+                if(year == 2018) ticker.stop();    // 2018 == endYear
+                year = year + 1;
             }, tickDuration);
+
         }, 6000);
 
         return svg.node();
