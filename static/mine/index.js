@@ -35,7 +35,6 @@ export default function define(runtime, observer) {
         console.log("chart observer");
 
         const svg = d3.select(DOM.svg(width, height));
-        svg.style("background-color", "#353739")
         console.log(svg);
 
         let title = svg.append('text')
@@ -43,7 +42,6 @@ export default function define(runtime, observer) {
                 class: 'title',
                 y: 24
             })
-            .style("color", "white")
             .html('The most populous cities in the world from 1500 to 2018');
         console.log(`title is ${title}`);
 
