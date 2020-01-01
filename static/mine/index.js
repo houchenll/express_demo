@@ -120,6 +120,26 @@ export default function define(runtime, observer) {
                         y: d => y(d.rank) + 5
                     });
 
+                bars
+                    .transition()
+                    .duration(tickDuration)
+                    .ease(d3.easeLinear)
+                    .attrs({
+                        width: d => x(d.value)-x(0)-1,
+                        y: d => y(d.rank)+5
+                    });
+
+                bars
+                    .exit()
+                    .transition()
+                    .duration(tickDuration)
+                    .ease(d3.easeLinear)
+                    .attrs({
+                        width: d => x(d.value)-x(0)-1,
+                        y: d => y(top_n+1)+5
+                    })
+                    .remove();
+
                 if(year == 2018) ticker.stop();    // 2018 == endYear
                 year = year + 1;
             }, tickDuration);
