@@ -40,6 +40,9 @@ export default function define(runtime, observer) {
                 y: 24
             })
             .html('The most populous cities in the world from 1500 to 2018');
+        console.log(`title is ${title}`);
+
+        return svg.node();
     });
 
     main.variable(observer()).define(["html"], function(html) {
