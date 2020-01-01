@@ -35,7 +35,7 @@ export default function define(runtime, observer) {
         console.log("chart observer");
 
         const svg = d3.select(DOM.svg(width, height));
-        svg.style("background-color", "#DDEEFF")
+        svg.style("background-color", "#353739")
         console.log(svg);
 
         let title = svg.append('text')
@@ -43,6 +43,7 @@ export default function define(runtime, observer) {
                 class: 'title',
                 y: 24
             })
+            .style("color", "white")
             .html('The most populous cities in the world from 1500 to 2018');
         console.log(`title is ${title}`);
 
@@ -98,6 +99,8 @@ export default function define(runtime, observer) {
                     .slice(0,top_n);
 
                 yearSlice.forEach((d,i) => d.rank = i);
+
+                x.domain([0, d3.max(yearSlice, d => d.value)]);
 
                 let bars = svg.selectAll('.bar').data(yearSlice, d => d.name);
 
