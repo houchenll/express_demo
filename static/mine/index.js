@@ -79,6 +79,10 @@ export default function define(runtime, observer) {
             .domain([top_n, 0])
             .range([height-margin.bottom, margin.top]);
 
+        let colourScale = d3.scaleOrdinal()
+            .range(["#adb0ff", "#ffb3ff", "#90d595", "#e48381", "#aafbff", "#f7bb5f", "#eafb50"])
+            .domain(["India","Europe","Asia","Latin America","Middle East","North America","Africa"]);
+
         // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
         // _ 表示什么？为什么用 _
         d3.timeout(_ => {
