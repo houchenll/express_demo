@@ -26,12 +26,16 @@ export default function define(runtime, observer) {
             require('d3-scale','d3-array','d3-fetch','d3-selection','d3-timer','d3-color','d3-format','d3-ease','d3-interpolate','d3-axis', 'd3-geo', 'd3-selection-multi')
             )
     });
+    main.variable(observer("tickDuration")).define("tickDuration", function() {
+        console.log("tickDuration observer")
+        return(250)
+    });
 
-    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "height"], function(d3, DOM, dataset, width, height) {
+    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "height", "tickDuration"], function(d3, DOM, dataset, width, height, tickDuration) {
         console.log("chart observer");
 
         const svg = d3.select(DOM.svg(width, height));
-        svg.style("background-color", "steelblue")
+        svg.style("background-color", "#DDEEFF")
         console.log(svg);
 
         let title = svg.append('text')
@@ -41,6 +45,14 @@ export default function define(runtime, observer) {
             })
             .html('The most populous cities in the world from 1500 to 2018');
         console.log(`title is ${title}`);
+
+        d3.timeout(_ => {
+            console.log('timeout');
+
+            let ticker = d3.interval(e => {
+                console.log(e, tickDuration);
+            }, tickDuration);
+        }, 6000);
 
         return svg.node();
     });
