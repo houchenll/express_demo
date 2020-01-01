@@ -54,6 +54,7 @@ export default function define(runtime, observer) {
             bottom: 5,
             left: 0
         };
+        let barPadding = (height-(margin.bottom+margin.top))/(top_n*5);
 
         dataset.forEach(d => {
             d.value = +d.value,
