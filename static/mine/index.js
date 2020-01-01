@@ -31,7 +31,73 @@ export default function define(runtime, observer) {
         console.log("chart observer");
 
         const svg = d3.select(DOM.svg(width, height));
+        svg.style("background-color", "steelblue")
         console.log(svg);
+
+        let title = svg.append('text')
+            .attrs({
+                class: 'title',
+                y: 24
+            })
+            .html('The most populous cities in the world from 1500 to 2018');
+    });
+
+    main.variable(observer()).define(["html"], function(html) {
+        console.log("html observer");
+        return(
+            html`<style>
+            text{
+              font-size: 16px;
+              font-family: Open Sans, sans-serif;
+            }
+            text.title{
+              font-size: 28px;
+              font-weight: 600;
+            }
+            text.subTitle{
+              font-weight: 500;
+              fill: #777777;
+            }
+            text.label{
+              font-size: 18px;
+            }
+            .map-legend text{
+              font-size: 14px;
+              fill: #777777;
+            }
+            text.caption{
+              font-weight: 400;
+              font-size: 14px;
+              fill: #999999;
+            }
+            text.yearText{
+              font-size: 96px;
+              font-weight: 700;
+              fill: #cccccc;
+            }
+            text.yearIntro{
+              font-size: 48px;
+              font-weight: 700;
+              fill: #cccccc;
+            }
+            .tick text {
+              fill: #777777;
+            }
+            .xAxis .tick:nth-child(2) text {
+              text-anchor: start;
+            }
+            .tick line {
+              shape-rendering: CrispEdges;
+              stroke: #dddddd;
+            }
+            .tick line.origin{
+              stroke: #aaaaaa;
+            }
+            path.domain{
+              display: none;
+            }
+            </style>`
+            )
     });
 
     console.log("return main");
