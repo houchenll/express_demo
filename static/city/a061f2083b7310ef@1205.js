@@ -72,6 +72,8 @@ path.domain{
 )});
   main.variable(observer("chart")).define("chart", ["d3","DOM","width","height","top_n","haloHighlight","startYear","dataset","halo","world_simplified","projection","topojson","tickDuration","endYear"], function(d3,DOM,width,height,top_n,haloHighlight,startYear,dataset,halo,world_simplified,projection,topojson,tickDuration,endYear)
 {
+  console.log(`width is ${width}, height is ${height}, top_n is ${top_n}, startYear is ${startYear}, endYear is ${endYear}`);
+  console.log(dataset);
   const svg = d3.select(DOM.svg(width, height));
   
   const margin = {
