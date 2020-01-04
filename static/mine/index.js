@@ -82,6 +82,21 @@ export default function define(runtime, observer) {
             .range(["#adb0ff", "#ffb3ff", "#90d595", "#e48381", "#aafbff", "#f7bb5f", "#eafb50"])
             .domain(["India","Europe","Asia","Latin America","Middle East","North America","Africa"]);
 
+        let xAxis = d3.axisTop()
+            .scale(x)
+            .ticks(width > 500 ? 5:2)
+            .tickSize(-(height-margin.top-margin.bottom))
+            .tickFormat(d => d3.format(',')(d));
+
+        svg.append('g')
+            .attrs({
+              class: 'axis xAxis',
+              transform: `translate(0, ${margin.top})`
+            })
+            .call(xAxis)
+            .selectAll('.tick line')
+            .classed('origin', d => d == 0);
+
         // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
         // _ 表示什么？为什么用 _
         d3.timeout(_ => {
@@ -99,6 +114,12 @@ export default function define(runtime, observer) {
                 yearSlice.forEach((d,i) => d.rank = i);
 
                 x.domain([0, d3.max(yearSlice, d => d.value)]);
+
+                svg.select('.xAxis')
+                    .transition()
+                    .duration(tickDuration)
+                    .ease(d3.easeLinear)
+                    .call(xAxis);
 
                 let bars = svg.selectAll('.bar').data(yearSlice, d => d.name);
 
