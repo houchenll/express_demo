@@ -31,7 +31,7 @@ export default function define(runtime, observer) {
         return(250)
     });
 
-    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "height", "tickDuration"], function(d3, DOM, dataset, width, height, tickDuration) {
+    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "height", "tickDuration", "haloHighlight", "halo"], function(d3, DOM, dataset, width, height, tickDuration, haloHighlight, halo) {
         console.log("chart observer");
 
         const svg = d3.select(DOM.svg(width, height));
@@ -147,6 +147,45 @@ export default function define(runtime, observer) {
               y: d => y(d.rank)+5+((y(1)-y(0))/2)+1,
             })
             .text(d => d3.format(',')(d.lastValue));
+
+        let yearIntro = svg.append('text')
+            .attrs({
+                class: 'yearIntro',
+                x: width-225,
+                y: height-195
+            })
+            .styles({
+                'text-anchor': 'end'
+            })
+            .html('Year: ');
+
+        haloHighlight(yearIntro, 3000, 3, 1, '#cccccc');
+
+        let yearText = svg.append('text')
+            .attrs({
+              class: 'yearText',
+              x: width-225,
+              y: height-195
+            })
+            // .styles({
+            //   'text-anchor': 'end'
+            // })
+            .html(~~year);    // ~~ ?
+        
+        yearText.call(halo, 10);
+        
+        haloHighlight(yearText, 3000, 8, 1, '#cccccc');
+
+
+
+
+
+
+
+
+
+
+
 
         // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
         // _ 表示什么？为什么用 _
@@ -332,8 +371,7 @@ export default function define(runtime, observer) {
                     .remove();
 
 
-
-
+                yearText.html(~~year);
 
                 if(year == 2018) ticker.stop();    // 2018 == endYear
                 year = year + 1;
@@ -401,6 +439,47 @@ export default function define(runtime, observer) {
             </style>`
             )
     });
+    main.variable(observer("haloHighlight")).define("haloHighlight", ["d3"], function(d3) {
+        return(
+            function(text, delay, strokeWidth=1, opacity=1, color='#000000') {
+                let textObject = text.select(function() { return this.parentNode.insertBefore(this.cloneNode(true), this); })
+                    .styles({
+                      fill: '#ffffff',
+                      stroke: color,
+                      'stroke-width': 0,
+                      'stroke-linejoin': 'round',
+                      opacity: opacity
+                    });
+                  textObject
+                    .transition()
+                      .ease(d3.easeLinear)
+                      .delay(delay)
+                      .duration(250)
+                      .styles({
+                        'stroke-width': strokeWidth
+                      })
+                      .transition()
+                        .ease(d3.easeLinear)
+                        .delay(500)
+                        .duration(250)
+                        .styles({
+                          'stroke-width': 0
+                        });
+            }
+        )
+    });
+    main.variable(observer("halo")).define("halo", function(){return(
+        function(text, strokeWidth, color='#ffffff') {
+          text.select(function() { return this.parentNode.insertBefore(this.cloneNode(true), this); })
+            .styles({
+              fill: color,
+              stroke: color,
+              'stroke-width': strokeWidth,
+              'stroke-linejoin': 'round',
+              opacity: 1
+            });
+        }
+    )});
 
     console.log("return main");
     return main;
