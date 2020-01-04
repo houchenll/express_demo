@@ -1,7 +1,8 @@
 export default function define(runtime, observer) {
     const main = runtime.module();
 
-    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "height", "world_simplified", "projection", "topojson"], function(d3, DOM, dataset, width, height, world_simplified, projection, topojson) {
+    main.variable(observer("chart")).define("chart", ["d3", "DOM", "dataset", "width", "world_simplified", "projection", "topojson"], function(d3, DOM, dataset, width, world_simplified, projection, topojson) {
+        const height = 1000;
         const svg = d3.select(DOM.svg(width, height));
 
         let colourScale = d3.scaleOrdinal()
