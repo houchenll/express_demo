@@ -89,6 +89,7 @@ export default function define(runtime, observer) {
               fill: colourScale('Latin America')
             });
 
+        return svg.node();
     });
 
     main.variable(observer("dataset")).define("dataset", ["d3"], function(d3) {
