@@ -192,6 +192,15 @@ export default function define(runtime, observer) {
         d3.timeout(_ => {
             console.log('timeout');
 
+            // 隐藏 Year
+            svg.selectAll('.yearIntro')
+                .transition()
+                .duration(1000)
+                .ease(d3.easeLinear)
+                .styles({
+                    opacity: 0
+                });
+
             // interval的参数是一个每隔tickDuration ms就执行一次的方法
             // e 为从方法被调用到现在的时间总长度
             let ticker = d3.interval(e => {
