@@ -97,6 +97,21 @@ export default function define(runtime, observer) {
             .selectAll('.tick line')
             .classed('origin', d => d == 0);
 
+        svg.selectAll('rect.bar')
+            .data(yearSlice, d => d.name)
+            .enter()
+            .append('rect')
+            .attrs({
+                class: 'bar',
+                x: x(0)+1,
+                width: d => x(d.value)-x(0)-1,
+                y: d => y(d.rank)+5,
+                height: y(1)-y(0)-barPadding
+            })
+            .styles({
+                fill: d => colourScale(d.group)
+            });
+
         // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
         // _ 表示什么？为什么用 _
         d3.timeout(_ => {
