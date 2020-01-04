@@ -112,6 +112,42 @@ export default function define(runtime, observer) {
                 fill: d => colourScale(d.group)
             });
 
+        svg.selectAll('text.label')
+            .data(yearSlice, d => d.name)
+            .enter()
+            .append('text')
+            .attrs({
+              class: 'label',
+              transform: d => `translate(${x(d.value)-5}, ${y(d.rank)+5+((y(1)-y(0))/2)-8})`,
+              'text-anchor': 'end'
+            })
+            .selectAll('tspan')
+            .data(d => [{text: d.name, opacity: 1, weight:600}, {text: d.subGroup, opacity: 1, weight:400}])
+            .enter()
+            .append('tspan')
+            .attrs({
+              x: 0,
+              dy: (d,i) => i*16
+            })
+            .styles({
+              // opacity: d => d.opacity,
+              fill: d => d.weight == 400 ? '#444444':'',
+              'font-weight': d => d.weight,
+              'font-size': d => d.weight == 400 ? '12px':''
+            })
+            .html(d => d.text);
+          
+        svg.selectAll('text.valueLabel')
+            .data(yearSlice, d => d.name)
+            .enter()
+            .append('text')
+            .attrs({
+              class: 'valueLabel',
+              x: d => x(d.value)+5,
+              y: d => y(d.rank)+5+((y(1)-y(0))/2)+1,
+            })
+            .text(d => d3.format(',')(d.lastValue));
+
         // timeout的参数是一个延迟(6000ms)执行的方法，只执行一次
         // _ 表示什么？为什么用 _
         d3.timeout(_ => {
