@@ -84,9 +84,9 @@ export default function define(runtime, observer) {
 
         let xAxis = d3.axisTop()
             .scale(x)
-            .ticks(width > 500 ? 5:2)
-            .tickSize(-(height-margin.top-margin.bottom))
-            .tickFormat(d => d3.format(',')(d));
+            .ticks(width > 500 ? 5 : 2)    // 控制坐标划分成几格
+            .tickSize(-(height-margin.top-margin.bottom))    // 控制坐标的高度
+            .tickFormat(d => d3.format(',')(d));    // 格式化坐标数值，format第1个参数是格式，第2个参数是待格式化的数值
 
         svg.append('g')
             .attrs({
